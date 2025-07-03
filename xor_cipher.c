@@ -1,19 +1,25 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <string.h>
 
-uint8_t encrpyt(uint8_t key, uint8_t input_char) {
-    return key ^ input_char;
-}
-
-uint8_t decrpyt(uint8_t key, uint8_t encrypted_char) {
-    return key ^ encrypted_char;
+void xor_cipher(uint8_t key, char *input_string, int len) {
+    for (int i = 0; i < len; i++) {
+        input_string[i] = key ^ input_string[i];
+    }
 }
 
 int main() {
-    uint8_t key = 'a'; //01 10 00 01
-    uint8_t input_char = 'c';
-    uint8_t encrypted_char = encrpyt(key, input_char);
-    uint8_t decrpyted_char = decrpyt(key, encrypted_char);
-    printf("key: %d\ninput_char: %d\nencrypted_char: %d\ndecrpyted_char: %d\n", key, input_char, encrypted_char, decrpyted_char);
+    uint8_t key = '0';
+    char input_string[] = "i love coding";
+    int len = strlen(input_string);
+
+    printf("input_string: %s\n", input_string);
+
+    xor_cipher(key, (uint8_t *)input_string, len);
+    printf("encrypted_string: %s\n", input_string);
+
+    xor_cipher(key, (uint8_t *)input_string, len);
+    printf("original string: %s\n", input_string);
+
     return 0;
 }
